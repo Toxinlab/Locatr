@@ -1,5 +1,6 @@
 package acs.castac.ricsvil.locatr;
 
+import android.location.Location;
 import android.net.Uri;
 import android.util.Log;
 
@@ -122,4 +123,12 @@ public class FlickrFetchr {
         return downloadGalleryItems(url);
     }
 
+    private String buildUrl(Location location){
+        return ENDPOINT.buildUpon().appendQueryParameter("method", SEARCH_METHOD).appendQueryParameter("lat", "" + location.getLatitude()).appendQueryParameter("lon", ""+location.getLongitude()).build().toString();
+    }
+
+    public List<GalleryItem> searchPhotos(Location location){
+        String url = buildUrl(location);
+        return downloadGalleryItems(url);
+    }
 }
